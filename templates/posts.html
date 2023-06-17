@@ -1,0 +1,43 @@
+{% extends 'base.html' %} 
+{% block title %} Posts {% endblock %}
+{% block content  %}
+<section class="hero">
+   <div class="container">
+      <div class="row justify-content-center">
+         <div class="col-md-8 col-lg-6 text-center mb-5">
+            <h1 class="display-4 mb-3">Posts</h1>
+            <a href="/create-post" class="btn btn-primary"><i class="bi bi-pencil-fill"></i> New Post</a>
+         </div>
+      </div>
+      <div class="row justify-content-center">
+         <div class="col-md-8 col-lg-6">
+            {% for post in posts %}
+            <div class="card mb-4">
+               <div class="card-header d-flex justify-content-between align-items-center bg-white">
+                  <span class="text-muted">{{ post[2] }}</span>
+                  <a href="/search/{{ post[1] }}" class="text-secondary">{{ post[1] }}</a>
+               </div>
+               <div class="card-body">
+                  <p class="card-text">{{ post[3] }}</p>
+               </div>
+               {% if session["username"] == post[1] or session["role"] == "Admin" %}
+               <div class="card-footer bg-white">
+                  <form action="/delete-post/{{ post[0] }}" method="post" style="display: inline;">
+                     <button type="submit" class="btn btn-danger"><i class="bi bi-trash-fill"></i></button>
+                  </form>
+                  <a href="/edit-post/{{ post[0] }}" class="btn btn-primary"><i class="bi bi-pencil-fill"></i></a>
+               </div>
+               {% endif %}
+</div>
+            {% endfor %}
+            {% if not posts %}
+    		<p>No posts yet sadly :(</p>
+    		{% endif %}
+         </div>
+      </div>
+   </div>
+</section>
+<style>
+   
+</style>
+{% endblock %}

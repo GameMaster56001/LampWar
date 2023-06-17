@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Home
+{% endblock %}
+
+{% block content %}
+{% set gen = '' %}
+{% if gender == "Male" %}
+  {% set gen = 'Mr.' %}
+{% elif gender == "Female" %}
+  {% set gen = 'Mrs.' %}
+{% endif %}
+
+<section class="hero">
+  <div class="container">
+    <div class="row justify-content-center align-items-center">
+      <div class="col-md-7 col-lg-6 text-center text-md-left mb-5 mb-md-0">
+        <h1 class="display-4 mb-3 animate__animated____animate__fadeInDownBig">Welcome {{ gen }}{{ username }}!</h1>
+        <p class="lead mb-5 animate__animated__ __animate__fadeInUpBig delay-1s">Hey there {{username}}, we are excited to have you here!</p>
+        <button class="btn btn-primary mr-3 mb-3 px-4 animate__animated__ __animate__flipInX delay-2s" onclick="navigateSettings()">
+          <i class="bi bi-gear"></i> Settings
+        </button>
+        {% if role == "Admin" %}
+        <a href="/staff-only" class="btn btn-secondary mb-3 px-4 animate__animated__ __animate__flipInY delay-3s">
+          <i class="bi bi-shield-lock"></i> Admin Panel
+        </a>
+        {% endif %}
+        <a href="/warnings" class="btn btn-secondary mb-3 px-4 animate__animated__ __animate__flipInX delay-4s">
+          <i class="bi bi-exclamation-circle"></i> Warnings
+        </a>
+        <a href="/search/{{ username }}" class="btn btn-secondary mb-3 px-4 animate__animated__ __animate__flipInY delay-5s">
+          <i class="bi bi-person"></i> View Profile
+        </a>
+        <a href="/logout" class="btn btn-secondary mb-3 px-4 animate__animated__ __animate__flipInX delay-6s">
+          <i class="bi bi-box-arrow-right"></i> Logout
+        </a>
+      </div>
+      <div class="col-md-5 col-lg-6">
+        <img 
+src="https://images.unsplash.com/photo-1521747116042-5a810fda9664?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+          class="img-fluid rounded-circle animate__animated__ __animate__bounceIn delay-1s" alt="Image">
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  function navigateSettings() {
+    window.location.replace("/settings");
+  }
+</script>
+
+<style>
+  body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.1rem;
+    color: #333;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+  }
+
+  a {
+    color: #007bff;
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: #005cbf;
+    text-decoration: underline;
+  }
+
+  .hero {
+    background-color: #f1f2f6;
+    padding: 7rem 0;
+  }
+
+  .btn-primary {
+    background-color: #0984e3;
+    border-color: #0984e3;
+    font-weight: bold;
+    font-size: 1.2rem;
+    padding: 10px 25px;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .btn-secondary {
+    background-color: #2d3436;
+    border-color: #2d3436;
+    font-size: 1.2rem;
+    padding: 10px 25px;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .btn-primary:hover,
+  .btn-secondary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0px 3px 15px rgba(9, 132, 227, 0.4);
+    animation: animateanimated animateheartBeat 1s infinite;
+  }
+
+  .bi {
+    vertical-align: middle;
+    margin-right: 10px;
+    font-size: 1.5rem;
+  }
+
+  @media (max-width: 768px) {
+    .hero {
+      padding: 5rem 0;
+    }
+  }
+</style>
+{% endblock %}

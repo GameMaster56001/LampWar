@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  User Profile
+{% endblock %}
+
+{% block content %}
+{% for profile in profileData %}
+<section class="hero">
+  <div class="container text-center py-5">
+    <h1 class="display-4 font-weight-bold mb-3">{{ profile[1] }}'s Profile</h1>
+  </div>
+</section>
+
+<section class="profile-info">
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-6">
+        <ul class="list-group shadow-sm rounded">
+          <li class="list-group-item d-flex align-items-center">
+            <span class="font-weight-bold mr-2">ID: </span><br/> {{ profile[0] }}
+          </li>
+          <li class="list-group-item d-flex align-items-center">
+            <span class="font-weight-bold mr-2">Username: </span> {{ profile[1] }}
+          </li>
+          <li class="list-group-item d-flex align-items-center">
+            <span class="font-weight-bold mr-2">Creation Date: </span> {{ profile[7] }}
+          </li>
+          <li class="list-group-item d-flex align-items-center">
+            <span class="font-weight-bold mr-2">Gender: </span> {{ profile[4] }}
+          </li>
+          <li class="list-group-item d-flex align-items-center">
+            <span class="font-weight-bold mr-2">Website Rank: </span> {{ profile[8] }}
+          </li>
+        </ul>
+
+        {% if profile[8] == 'Admin' and role == 'Admin' %}
+          <div class="d-flex justify-content-end mt-4">
+            <button class="btn btn-danger mr-2" onclick="reportUser()">Report Abuse</button>
+            <button class="btn btn-danger ml-2" disabled>Ban User</button>
+          </div>
+        {% elif profile[8] == 'User' and role == 'Admin' %}
+          <div class="d-flex justify-content-end mt-4">
+            <button class="btn btn-danger  mr-2" onclick="reportUser()">Report Abuse</button>
+            <button class="btn btn-danger ml-2" onclick="banUser()">Ban User</button>
+          </div>
+        {% elif role == 'User' %}
+          <div class="d-flex justify-content-end mt-4">
+            <button class="btn btn-danger" onclick="reportUser()">Report Abuse</button>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+function reportUser() {
+  window.location.replace('/report/{{ profile[1] }}');
+}
+
+function banUser() {
+  window.location.replace('/banU/{{ profile[1] }}');
+}
+</script>
+
+<style>
+body {
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+}
+
+.hero {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.list-group-item {
+  border: none;
+  font-size: 1.1rem;
+  padding: 1rem;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+  font-weight: bold;
+  font-size: 1.2rem;
+  padding: 10px 25px;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-danger:hover {
+  transform: translateY(-3px);
+  box-shadow: 0px 3px 15px rgba(220, 53, 69, 0.4);
+}
+
+.profile-info {
+  background-color: #fff;
+  border-radius: 20px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 5rem 0;
+  }
+
+  .list-group-item {
+    font-size: 1rem;
+  }
+}
+</style>
+{% endfor %}
+{% endblock %}

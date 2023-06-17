@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Account Settings{% endblock %}
+
+{% block content %}
+  <h1 class="title">User Settings</h1> 
+
+  <div class="user-info card p-4 mb-4">
+    <span class="info-item"><strong>Username:</strong> {{username}}</span>
+    <span class="info-item"><strong>Role:</strong> {{role}}</span>
+    <span class="info-item"><strong>Gender:</strong> {{gender}}</span>
+  </div>
+
+  <button class="btn btn-primary" onclick="updateUsername()">Update username</button>
+  <button class="btn btn-primary" onclick="updatePassword()">Update password</button>
+
+  <script>
+  	function updateUsername(){
+  		window.location.replace("settings/username")
+  	}
+
+  	function updatePassword(){
+  		window.location.replace("settings/password")
+  	}
+  </script>
+
+{% endblock %}
