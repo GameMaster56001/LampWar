@@ -30,7 +30,7 @@ def turnToStr(var):
 
 
 app = Flask(__name__)
-app.secret_key = "1001574482"
+app.secret_key = "0"
 app.permanent_session_lifeitme = timedelta(days=50)
 
 @app.route("/", methods=["POST", "GET"])
